@@ -1,0 +1,5 @@
+[production]
+host = "https://catfact.ninja"
+
+[development]
+host = "https://dev.catfact.ninja"

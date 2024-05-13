@@ -1,0 +1,39 @@
+[tool.poetry]
+name = "cat-facts-api-test"
+version = "0.1.0"
+description = "Functional integration tests for Cat Facts API"
+authors = ["Peter <peterjohnson1990@gmail.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pytest = "^8.2.0"
+black = "^24.4.2"
+dynaconf = "^3.2.5"
+requests = "^2.31.0"
+isort = "^5.13.2"
+mypy = "^1.10.0"
+types-requests = "^2.31.0.20240406"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+
+[tool.black]
+line-length = 120
+target-version = ["py312"]
+
+[tool.isort]
+profile = 'black'
+
+[tool.mypy]
+ignore_errors = false
+ignore_missing_imports = false
+show_error_codes = true
+show_error_context = true
+show_column_numbers = true
+pretty = true

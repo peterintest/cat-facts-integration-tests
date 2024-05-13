@@ -1,0 +1,41 @@
+name: Run Pytest API Integration Tests
+
+on:
+  schedule:
+    - cron: '0 12 * * 1-5'  # Run every Monday to Friday at noon
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Test environment (production or development)'
+        required: false
+        default: 'production'
+
+jobs:
+  run_tests:
+    name: Run Pytest API Integration Tests
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: [3.12]
+
+    env:
+      ENVIRONMENT: ${{ github.event.inputs.environment }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python and Poetry
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Poetry
+        run: curl -sSL https://install.python-poetry.org | python3 -
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Run tests
+        run: |
+          poetry run pytest --junitxml=test-result
